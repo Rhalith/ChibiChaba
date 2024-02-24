@@ -38,7 +38,7 @@ namespace VideoScripts
         {
             if(_videoChangedCompletely) return;
             _secondsPassed += Time.deltaTime;
-            if (_secondsPassed > 0.15f)
+            if (_secondsPassed > 0.2f)
             {
                 if(_isHappy) ChangeVideo(false);
             }
@@ -64,6 +64,7 @@ namespace VideoScripts
         private void ChangeVideoCompletely(ChangeVideoCompletelyEvent @event)
         {
             _videoChangedCompletely = true;
+            if(!_isHappy) ChangeVideo(true);
         }
     }
 }
