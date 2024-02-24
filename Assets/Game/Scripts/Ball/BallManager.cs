@@ -9,7 +9,7 @@ namespace Ball
     {
         [SerializeField] private GameObject ballPrefab;
         [SerializeField] private List<BallController> balls;
-
+        [SerializeField] private int maxBalls = 500;
         public GameObject BallPrefab => ballPrefab;
 
         private void Start()
@@ -43,17 +43,12 @@ namespace Ball
                     balls.Remove(@event.Ball);
                 }
             }
-            CheckBalls();
         }
 
-        private void CheckBalls()
+        public bool CanSpawnBall()
         {
-            if (balls.Count <= 250) return;
-            for (var i = balls.Count - 1; i > 250; i--)
-            {
-                Destroy(balls[i]);
-                balls.RemoveAt(i);
-            }
+            if (balls.Count > maxBalls) return false;
+            return true;
         }
     }
 }

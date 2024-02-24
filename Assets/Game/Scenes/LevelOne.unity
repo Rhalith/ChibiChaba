@@ -33745,6 +33745,7 @@ MonoBehaviour:
   ballPrefab: {fileID: 2920603746011759451, guid: fb6aa044d3b30e84a94deb596061ac15, type: 3}
   balls:
   - {fileID: 146293365529475296}
+  maxBalls: 1000
 --- !u!4 &1947983514
 Transform:
   m_ObjectHideFlags: 0
