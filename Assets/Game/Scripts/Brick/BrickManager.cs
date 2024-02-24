@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
@@ -7,11 +8,18 @@ namespace Brick
     public class BrickManager : MonoBehaviour
     {
         [SerializeField] private List<GameObject> boosters;
-        [SerializeField] private List<BrickController> bricks;
-        
-        private void Start()
+
+        public static BrickManager Instance { get; private set; }
+        private void Awake()
         {
-            bricks.ForEach(brick => brick.BrickManager = this);
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         public void SpawnBooster(Vector3 position)
@@ -22,11 +30,6 @@ namespace Brick
             var randomIndex = random.Next(0, boosters.Count);
             Instantiate(boosters[randomIndex], position, Quaternion.identity);
         }
-
-        public void RemoveBrick(BrickController brickController)
-        {
-            bricks.Remove(brickController);
-            Destroy(brickController.gameObject);
-        }
+        
     }
 }

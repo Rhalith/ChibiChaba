@@ -1,4 +1,5 @@
-﻿using Essentials;
+﻿using System;
+using Essentials;
 using EventBus;
 using EventBus.Events;
 using UnityEngine;
@@ -12,12 +13,10 @@ namespace Brick
         [SerializeField] private Color color;
         private int _points = 100;
 
-        public BrickManager BrickManager
+        private void Awake()
         {
-            get => _brickManager;
-            set => _brickManager = value;
+            _brickManager = BrickManager.Instance;
         }
-
         private void Start()
         {
             spriteRenderer.color = color;
@@ -29,7 +28,6 @@ namespace Brick
             {
                 _brickManager.SpawnBooster(transform.position);
                 EventBus<BallHitEvent>.Dispatch(new BallHitEvent());
-                _brickManager.RemoveBrick(this);
             }
         }
     }
