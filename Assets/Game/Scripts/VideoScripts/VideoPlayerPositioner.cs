@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace VideoPlayer
+namespace VideoScripts
 {
     public class VideoPlayerPositioner : MonoBehaviour
     {

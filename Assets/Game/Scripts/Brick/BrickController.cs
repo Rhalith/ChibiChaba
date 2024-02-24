@@ -1,4 +1,6 @@
 ﻿using Essentials;
+using EventBus;
+using Events;
 using UnityEngine;
 
 namespace Brick
@@ -14,6 +16,7 @@ namespace Brick
             {
                 GameManager.Instance.BrickDestroyed(_points);
                 brickManager.SpawnBooster(transform.position);
+                EventBus<BallHitEvent>.Dispatch(new BallHitEvent());
                 Destroy(gameObject);
             }
         }
