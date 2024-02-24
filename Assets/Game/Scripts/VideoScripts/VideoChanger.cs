@@ -15,15 +15,18 @@ namespace VideoScripts
 
         private float _secondsPassed = 0.2f;
         private bool _isHappy;
+        private bool _videoChangedCompletely;
 
         private void OnEnable()
         {
             EventBus<BallHitEvent>.Subscribe(ResetTime);
+            EventBus<ChangeVideoCompletelyEvent>.Subscribe(ChangeVideoCompletely);
         }
 
         private void OnDisable()
         {
             EventBus<BallHitEvent>.Unsubscribe(ResetTime);
+            EventBus<ChangeVideoCompletelyEvent>.Unsubscribe(ChangeVideoCompletely);
         }
 
         private void Start()
@@ -33,6 +36,7 @@ namespace VideoScripts
 
         private void Update()
         {
+            if(_videoChangedCompletely) return;
             _secondsPassed += Time.deltaTime;
             if (_secondsPassed > 0.15f)
             {
@@ -54,6 +58,12 @@ namespace VideoScripts
             _isHappy = isHappy;
             videoPlayer.clip = isHappy ? happyVideo : sadVideo;
             videoPlayer.frame = 10;
+        }
+        
+        
+        private void ChangeVideoCompletely(ChangeVideoCompletelyEvent @event)
+        {
+            _videoChangedCompletely = true;
         }
     }
 }

@@ -43,6 +43,16 @@ namespace Ball
                     balls.Remove(@event.Ball);
                 }
             }
+
+            CheckBallCount();
+        }
+
+        private void CheckBallCount()
+        {
+            if (balls.Count > 35)
+            {
+                EventBus<ChangeVideoCompletelyEvent>.Dispatch(new ChangeVideoCompletelyEvent());
+            }
         }
 
         public bool CanSpawnBall()
