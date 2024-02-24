@@ -14,7 +14,6 @@ namespace Brick
         {
             if (collision.gameObject.CompareTag("Ball"))
             {
-                GameManager.Instance.BrickDestroyed(_points);
                 brickManager.SpawnBooster(transform.position);
                 EventBus<BallHitEvent>.Dispatch(new BallHitEvent());
                 Destroy(gameObject);

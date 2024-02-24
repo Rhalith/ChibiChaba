@@ -1,31 +1,19 @@
-﻿using EventBus;
-using EventBus.Events;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Ball
 {
     public class BallManager : MonoBehaviour
     {
-        private void OnEnable()
-        {
-            EventBus<SpawnBallEvent>.Subscribe(SpawnBalls);
-            EventBus<MultiplyBallEvent>.Subscribe(MultiplyBalls);
-        }
-        
-        private void OnDisable()
-        {
-            EventBus<SpawnBallEvent>.Unsubscribe(SpawnBalls);
-            EventBus<MultiplyBallEvent>.Unsubscribe(MultiplyBalls);
-        }
+        [SerializeField] private GameObject ballPrefab;
+        [SerializeField] private List<BallController> balls;
 
-        private void SpawnBalls(SpawnBallEvent @event)
-        {
-            
-        }
+        public GameObject BallPrefab => ballPrefab;
 
-        private void MultiplyBalls(MultiplyBallEvent @event)
+        private void Start()
         {
-            
+            balls[0].MoveBall();
         }
     }
 }

@@ -51,7 +51,7 @@ namespace Paddle
                     EventBus<SpawnBallEvent>.Dispatch(new SpawnBallEvent{BallCount = 3});
                     break;
                 case BoosterType.Multiplier:
-                    EventBus<MultiplyBallEvent>.Dispatch(new MultiplyBallEvent{Multiplier = 3});
+                    EventBus<MultiplyBallEvent>.Dispatch(new MultiplyBallEvent());
                     break;
                 case BoosterType.Wider:
                     IncreaseWide();
