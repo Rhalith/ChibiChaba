@@ -1,6 +1,6 @@
 ﻿using Essentials;
 using EventBus;
-using Events;
+using EventBus.Events;
 using UnityEngine;
 
 namespace Brick

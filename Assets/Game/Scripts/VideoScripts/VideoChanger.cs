@@ -1,5 +1,6 @@
-﻿using EventBus;
-using Events;
+﻿using System;
+using EventBus;
+using EventBus.Events;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -23,6 +24,11 @@ namespace VideoScripts
         private void OnDisable()
         {
             EventBus<BallHitEvent>.Unsubscribe(ResetTime);
+        }
+
+        private void Start()
+        {
+            ChangeVideo(false);
         }
 
         private void Update()
