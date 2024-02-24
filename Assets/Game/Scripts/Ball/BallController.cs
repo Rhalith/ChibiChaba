@@ -49,11 +49,10 @@ namespace Ball
             for (int i = 0; i < 2; i++)
             {
                 var ball = Instantiate(GameManager.Instance.BallManager.BallPrefab, transform.position, Quaternion.identity);
-                float randomX = Random.Range(-1.0f, 1.0f);
-                float randomY = Random.Range(-1.0f, 1.0f);
-                Vector2 randomDirection = new Vector2(randomX, randomY).normalized;
-                ball.GetComponent<Rigidbody2D>().velocity = randomDirection * initialSpeed;
-                EventBus<ChangeBallListEvent>.Dispatch(new ChangeBallListEvent {IsAdd = true, Ball = ball.GetComponent<BallController>()});
+                float angle = Random.Range(0, 360);
+                Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+                ball.GetComponent<Rigidbody2D>().velocity = direction * initialSpeed;
+                ball.transform.parent = GameManager.Instance.BallManager.transform;
             }
         }
 
