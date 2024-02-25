@@ -9,8 +9,7 @@ namespace Ball
     public class BallController : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D rb;
-        public float initialSpeed = 25f;
-        private Vector2 _lastVelocity;
+        public float initialSpeed = 40f;
 
         private void Start()
         {
@@ -26,15 +25,6 @@ namespace Ball
         {
             EventBus<MultiplyBallEvent>.Unsubscribe(MultiplyBall);
         }
-        
-        private void Update()
-        {
-            _lastVelocity = rb.velocity;
-            if (_lastVelocity.magnitude < initialSpeed)
-            {
-                rb.velocity = _lastVelocity.normalized * initialSpeed;
-            }
-        }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -43,9 +33,19 @@ namespace Ball
                 EventBus<ChangeBallListEvent>.Dispatch(new ChangeBallListEvent {IsAdd = false, Ball = this});
                 Destroy(gameObject);
             }
-            var direction = Vector2.Reflect(_lastVelocity, collision.contacts[0].normal).normalized;
-            rb.velocity = direction * initialSpeed;
-            
+            else if (collision.gameObject.CompareTag("Player"))
+            {
+                Vector3 paddlePos = collision.transform.position;
+                Vector2 contactPoint = collision.contacts[0].point;
+                float width = collision.collider.bounds.size.x;
+
+                float difference = (contactPoint.x - paddlePos.x) / (width / 2);
+                float angle = difference * 75;
+                
+                Vector2 newDirection = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad)).normalized;
+                
+                rb.velocity = newDirection * initialSpeed;
+            }
         }
         private void MultiplyBall(MultiplyBallEvent @event)
         {

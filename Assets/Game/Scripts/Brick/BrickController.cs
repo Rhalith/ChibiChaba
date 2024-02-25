@@ -12,13 +12,10 @@ namespace Brick
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Color color;
         private int _points = 100;
-
-        private void Awake()
-        {
-            _brickManager = BrickManager.Instance;
-        }
+        
         private void Start()
         {
+            _brickManager = BrickManager.Instance;
             spriteRenderer.color = color;
         }
 
@@ -28,6 +25,7 @@ namespace Brick
             {
                 _brickManager.SpawnBooster(transform.position);
                 EventBus<BallHitEvent>.Dispatch(new BallHitEvent());
+                Destroy(gameObject);
             }
         }
     }
