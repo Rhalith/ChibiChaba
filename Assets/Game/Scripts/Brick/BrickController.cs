@@ -1,6 +1,4 @@
-﻿using System;
-using Essentials;
-using EventBus;
+﻿using EventBus;
 using EventBus.Events;
 using UnityEngine;
 
@@ -23,8 +21,9 @@ namespace Brick
         {
             if (collision.gameObject.CompareTag("Ball"))
             {
-                _brickManager.SpawnBooster(transform.position);
+                _brickManager.SpawnBooster(this);
                 EventBus<BallHitEvent>.Dispatch(new BallHitEvent());
+                GetComponent<Collider2D>().enabled = false;
                 Destroy(gameObject);
             }
         }

@@ -1,5 +1,6 @@
 ﻿using EventBus;
 using System.Collections.Generic;
+using Essentials;
 using EventBus.Events;
 using UnityEngine;
 
@@ -52,6 +53,18 @@ namespace Ball
             if (balls.Count > 35)
             {
                 EventBus<ChangeVideoCompletelyEvent>.Dispatch(new ChangeVideoCompletelyEvent());
+                if (balls.Count > 1000)
+                {
+                    for (int i = balls.Count - 1; i >= 0; i--)
+                    {
+                        Destroy(balls[i].gameObject);
+                        balls.RemoveAt(i);
+                    }
+                }
+            }
+            else if (balls.Count <= 0)
+            {
+                GameManager.Instance.GameOver(false);
             }
         }
 

@@ -19,11 +19,13 @@ namespace Ball
         private void OnEnable()
         {
             EventBus<MultiplyBallEvent>.Subscribe(MultiplyBall);
+            EventBus<StopGameEvent>.Subscribe(StopBall);
         }
 
         private void OnDisable()
         {
             EventBus<MultiplyBallEvent>.Unsubscribe(MultiplyBall);
+            EventBus<StopGameEvent>.Subscribe(StopBall);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -65,6 +67,11 @@ namespace Ball
         public void MoveBall()
         {
             rb.velocity = new Vector2(initialSpeed, initialSpeed);
+        }
+        
+        private void StopBall(StopGameEvent @event)
+        {
+            rb.velocity = Vector2.zero;
         }
     }
 }

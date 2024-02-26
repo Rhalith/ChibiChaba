@@ -1,5 +1,4 @@
-﻿using System;
-using EventBus;
+﻿using EventBus;
 using EventBus.Events;
 using UnityEngine;
 using UnityEngine.Video;
@@ -21,14 +20,16 @@ namespace VideoScripts
         {
             EventBus<BallHitEvent>.Subscribe(ResetTime);
             EventBus<ChangeVideoCompletelyEvent>.Subscribe(ChangeVideoCompletely);
+            EventBus<StopGameEvent>.Subscribe(StopVideo);
         }
 
         private void OnDisable()
         {
             EventBus<BallHitEvent>.Unsubscribe(ResetTime);
             EventBus<ChangeVideoCompletelyEvent>.Unsubscribe(ChangeVideoCompletely);
+            EventBus<StopGameEvent>.Unsubscribe(StopVideo);
         }
-
+        
         private void Start()
         {
             ChangeVideo(false);
@@ -65,6 +66,11 @@ namespace VideoScripts
         {
             _videoChangedCompletely = true;
             if(!_isHappy) ChangeVideo(true);
+        }
+        
+        private void StopVideo(StopGameEvent @event)
+        {
+            videoPlayer.Pause();
         }
     }
 }
