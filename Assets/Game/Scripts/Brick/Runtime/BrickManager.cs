@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using Essentials;
+using EventBus.Events;
+using EventBus;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Brick
+namespace Brick.Runtime
 {
     public class BrickManager : MonoBehaviour
     {
@@ -21,7 +23,7 @@ namespace Brick
                 Destroy(gameObject);
             }
         }
-
+        
         public void SpawnBooster(BrickController brickController)
         {
             ChangeBrickList(brickController);

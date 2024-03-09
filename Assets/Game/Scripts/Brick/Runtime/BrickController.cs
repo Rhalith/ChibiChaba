@@ -2,7 +2,7 @@
 using EventBus.Events;
 using UnityEngine;
 
-namespace Brick
+namespace Brick.Runtime
 {
     public class BrickController : MonoBehaviour
     {
