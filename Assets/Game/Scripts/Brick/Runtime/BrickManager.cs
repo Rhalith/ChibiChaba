@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Essentials;
 using EventBus.Events;
 using EventBus;
@@ -23,7 +24,16 @@ namespace Brick.Runtime
                 Destroy(gameObject);
             }
         }
-        
+
+        private void Start()
+        {
+            foreach (var o in FindObjectsOfType(typeof(BrickController)))
+            {
+                var obj = (BrickController)o;
+                bricks.Add(obj);
+            }
+        }
+
         public void SpawnBooster(BrickController brickController)
         {
             ChangeBrickList(brickController);

@@ -21,11 +21,21 @@ namespace Ball
         private void OnEnable()
         {
             EventBus<ChangeBallListEvent>.Subscribe(ChangeBallList);
+            EventBus<StopGameEvent>.Subscribe(StopBalls);
         }
         
         private void OnDisable()
         {
             EventBus<ChangeBallListEvent>.Unsubscribe(ChangeBallList);
+            EventBus<StopGameEvent>.Unsubscribe(StopBalls);
+        }
+
+        private void StopBalls(StopGameEvent @event)
+        {
+            foreach (var ball in balls)
+            {
+                ball.StopMove();
+            }
         }
 
         private void ChangeBallList(ChangeBallListEvent @event)
@@ -53,14 +63,6 @@ namespace Ball
             if (balls.Count > 35)
             {
                 EventBus<ChangeVideoCompletelyEvent>.Dispatch(new ChangeVideoCompletelyEvent());
-                if (balls.Count > 1000)
-                {
-                    for (int i = balls.Count - 1; i >= 0; i--)
-                    {
-                        Destroy(balls[i].gameObject);
-                        balls.RemoveAt(i);
-                    }
-                }
             }
             else if (balls.Count <= 0)
             {
