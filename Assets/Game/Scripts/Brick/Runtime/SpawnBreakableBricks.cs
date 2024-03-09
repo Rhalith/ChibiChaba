@@ -26,5 +26,14 @@ namespace Brick.Runtime
                 }
             }
         }
+
+        public void DestroyBricks()
+        {
+            foreach (var brick in bricks)
+            {
+                DestroyImmediate(brick.gameObject);
+            }
+            bricks.Clear();
+        }
     }
 }

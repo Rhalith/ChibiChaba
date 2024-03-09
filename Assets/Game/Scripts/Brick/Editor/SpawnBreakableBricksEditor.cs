@@ -16,6 +16,11 @@ namespace Brick.Editor
             {
                 spawnBreakableBricks.GenerateBricks();
             }
+            
+            if (GUILayout.Button("Destroy Breakable Bricks"))
+            {
+                spawnBreakableBricks.DestroyBricks();
+            }
         }
     }
 }
